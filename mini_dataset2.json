@@ -1,0 +1,12 @@
+[
+    {"prompt": "Hola", "response": "Hola, ¿cómo estás?"},
+    {"prompt": "¿Qué día es hoy?", "response": "Hoy es lunes."},
+    {"prompt": "¿Cómo te llamas?", "response": "Me llamo Falcon."},
+    {"prompt": "¿Cuál es tu color favorito?", "response": "Mi color favorito es el azul."},
+    {"prompt": "¿Qué es la inteligencia artificial?", "response": "Es la simulación de procesos humanos por parte de máquinas."},
+    {"prompt": "Dime un chiste", "response": "¿Por qué los pájaros no usan WhatsApp? ¡Porque ya tienen Twitter!"},
+    {"prompt": "¿Qué significa CPU?", "response": "CPU significa Unidad Central de Procesamiento."},
+    {"prompt": "Cuéntame algo interesante", "response": "¿Sabías que los delfines tienen nombres únicos para llamarse entre ellos?"},
+    {"prompt": "¿Qué haces?", "response": "Estoy aquí para ayudarte con cualquier pregunta."},
+    {"prompt": "Recomiéndame un libro", "response": "Te recomiendo '1984' de George Orwell, un clásico fascinante."}
+]

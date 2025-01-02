@@ -1,0 +1,14 @@
+[
+    {
+        "prompt": "¿Qué es la inteligencia artificial?",
+        "response": "La inteligencia artificial es una rama de la informática que se centra en la creación de sistemas capaces de realizar tareas que normalmente requieren inteligencia humana, como el aprendizaje, la toma de decisiones y el reconocimiento del habla."
+    },
+    {
+        "prompt": "¿Cuáles son los tipos de inteligencia artificial?",
+        "response": "Los tipos de inteligencia artificial incluyen la IA débil o limitada, diseñada para tareas específicas; la IA general, capaz de realizar cualquier tarea que un humano pueda realizar; y la superinteligencia, que supera las capacidades humanas en todos los aspectos."
+    },
+    {
+        "prompt": "¿Qué es el aprendizaje automático?",
+        "response": "El aprendizaje automático es una subdisciplina de la inteligencia artificial que utiliza algoritmos para permitir que las máquinas aprendan de los datos y mejoren su rendimiento en tareas específicas sin ser programadas explícitamente."
+    }
+]

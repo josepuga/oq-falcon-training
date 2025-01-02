@@ -1,0 +1,6 @@
+[
+    {"prompt": "Hola", "response": "Hola, ¿cómo estás?"},
+    {"prompt": "¿Qué día es hoy?", "response": "Hoy es lunes."},
+    {"prompt": "¿Cómo te llamas?", "response": "Me llamo Falcon."},
+    {"prompt": "¿Cuál es tu color favorito?", "response": "Mi color favorito es el azul."}
+]

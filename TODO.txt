@@ -1,0 +1,119 @@
+No termina de funcionar el reaudar entrenamiento desde un checkpoint.
+    - Se prueba con añadir max_steps=10 en get_default_training_arguments()
+
+
+Consulta a ChatGPT:
+
+    Una vez que el modelo ha sido entrenado, el siguiente paso depende de tus objetivos específicos. Aquí tienes un resumen de las etapas típicas después del entrenamiento:
+    1. Evaluación del Modelo
+    
+    Evalúa cómo responde el modelo a los datos entrenados y cómo generaliza a datos nuevos:
+    a. Probar el modelo con datos de inferencia
+    
+    Usa prompts relacionados con los datos de entrenamiento y datos completamente nuevos para evaluar su capacidad de generalización.
+    
+    Ejemplo:
+    
+    prompt = "¿Cuál es tu color favorito?"
+    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
+    outputs = model.generate(inputs.input_ids, max_length=50)
+    print(tokenizer.decode(outputs[0], skip_special_tokens=True))
+    
+    b. Métricas de evaluación
+    
+    Si tienes un conjunto de evaluación:
+    
+        Usa métricas como Perplejidad (PPL) para medir cómo el modelo se ajusta a los datos.
+        Puedes implementar métricas personalizadas si tienes respuestas esperadas.
+    
+    2. Guardar el Modelo para Uso Futuro
+    
+    Guarda el modelo entrenado y el tokenizador para reutilizarlo:
+    
+    model.save_pretrained("./final_model")
+    tokenizer.save_pretrained("./final_model")
+    
+    Esto generará:
+    
+        Pesos del modelo (pytorch_model.bin o model.safetensors).
+        Configuración (config.json).
+        Archivos del tokenizador (tokenizer_config.json, vocabulario, etc.).
+    
+    Puedes cargar este modelo en cualquier momento para inferencias o continuar entrenando:
+    
+    from transformers import AutoModelForCausalLM, AutoTokenizer
+    
+    model = AutoModelForCausalLM.from_pretrained("./final_model")
+    tokenizer = AutoTokenizer.from_pretrained("./final_model")
+    
+    3. Inferencias
+    
+    Usa el modelo entrenado para generar respuestas o realizar tareas específicas. Configura parámetros de generación como temperature, top_p, y num_beams según el caso:
+    
+    outputs = model.generate(
+        inputs.input_ids,
+        max_length=50,
+        do_sample=True,       # Permitir aleatoriedad
+        temperature=0.7,      # Controlar creatividad
+        top_p=0.9,            # Nucleus sampling
+        num_beams=5           # Búsqueda con haz para precisión
+    )
+    
+    4. Validación y Ajustes
+    
+    Prueba el modelo en un conjunto de datos externo para evaluar:
+    
+        Retención de conocimiento: ¿Sigue respondiendo correctamente a los datos entrenados?
+        Generalización: ¿Responde bien a datos nuevos?
+        Errores comunes: Identifica patrones incorrectos o respuestas no deseadas.
+    
+    Si encuentras problemas:
+    
+        Ajusta los hiperparámetros y entrena nuevamente.
+        Amplía el dataset con ejemplos representativos de los problemas detectados.
+    
+    5. Optimización para Producción
+    
+    Si planeas implementar el modelo en un entorno de producción, considera optimizar su rendimiento:
+    a. Cuantización
+    
+    Reduce el tamaño del modelo y mejora la velocidad de inferencia:
+    
+    pip install optimum
+    
+    Ejemplo con optimum para cuantizar:
+    
+    from optimum.pytorch import quantize_dynamic
+    quantized_model = quantize_dynamic(model, dtype="int8")
+    quantized_model.save_pretrained("./quantized_model")
+    
+    b. Implementación en un servidor
+    
+    Usa frameworks como FastAPI o Flask para exponer el modelo a través de una API REST.
+    6. Publicación o Uso Compartido
+    
+    Si deseas compartir tu modelo, puedes publicarlo en Hugging Face Hub:
+    
+    from huggingface_hub import HfApi
+    
+    api = HfApi()
+    api.create_repo(name="mi_modelo_personalizado")
+    model.push_to_hub("mi_modelo_personalizado")
+    tokenizer.push_to_hub("mi_modelo_personalizado")
+    
+    Esto permite que otros puedan usar o continuar entrenando el modelo.
+    7. Reentrenamiento Incremental
+    
+    Si recopilas más datos relevantes o detectas fallos en la respuesta del modelo, puedes:
+    
+        Cargar el modelo entrenado.
+        Realizar un nuevo entrenamiento incremental con los datos adicionales.
+    
+    Resumen de los pasos
+    
+        Evaluar el modelo: Pruebas manuales y métricas.
+        Guardar el modelo: Asegura que esté listo para reutilizarse.
+        Realizar inferencias: Generar respuestas y ajustar parámetros de generación.
+        Optimizar para producción: Cuantización y despliegue.
+        Compartir o publicar el modelo: Opcional, según tus necesidades.
+        Reentrenar según sea necesario: Para ajustar o expandir capacidades.
